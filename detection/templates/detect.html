@@ -1,0 +1,316 @@
+{% include 'includes/navbar.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Object Detection</title>
+    <style>
+        /* General Page Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Heading Styling */
+        h1 {
+            font-size: 2.8rem;
+            margin: 20px 0;
+            text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Introduction Section */
+        .intro-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .intro-container p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        /* Button Container */
+        .button-container {
+            margin: 20px;
+        }
+
+        /* Buttons */
+        button {
+            padding: 12px 20px;
+            margin: 10px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .start-btn {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .start-btn:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        .stop-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .stop-btn:hover {
+            background-color: #c82333;
+            transform: scale(1.05);
+        }
+
+        /* Video Container */
+        #video-container {
+            display: none;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        #video-stream {
+            width: 800px;
+            height: 600px;
+            border: 3px solid #ffffff;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Fullscreen Button */
+        #fullscreen-btn {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+
+        #fullscreen-btn:hover {
+            background: rgba(0, 0, 0, 0.8);
+            transform: scale(1.1);
+        }
+
+        /* Project Info Section */
+        .project-info {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: left;
+        }
+
+        .project-info h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .project-info p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            padding: 5px 10px;
+        }
+         /* --- Modern Login Popup --- */
+        #login-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            color: black;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 350px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .modal-content h2 {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .modal-content p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .modal-content button {
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .login-btn {
+            background-color: #ffc107;
+            color: white;
+        }
+
+        .login-btn:hover {
+            background-color: #e0a800 ;
+        }
+
+        .close-btn {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .close-btn:hover {
+            background-color: #495057;
+        }
+
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            #video-stream {
+                width: 100%;
+                height: auto;
+            }
+
+            .button-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Object Detection Platform</h1>
+
+    <div class="intro-container">
+        <p>
+            This platform allows you to detect objects in real-time using a trained AI model.
+            Click the <b>Start Detection</b> button to begin the live video feed and analyze objects in real-time.
+        </p>
+    </div>
+
+    <div class="button-container">
+        <button class="start-btn" onclick="startDetection()">Start Detection</button>
+        <button class="stop-btn" onclick="stopDetection()">Stop Detection</button>
+    </div>
+
+    <div id="video-container">
+        <img id="video-stream" onclick="toggleFullscreen()" alt="Video Stream">
+        <button id="fullscreen-btn" onclick="toggleFullscreen()">⛶</button>
+    </div>
+
+      <div id="login-modal">
+        <div class="modal-content">
+            <h2>Login Required</h2>
+            <p>You need to log in to start object detection.</p>
+            <button class="login-btn" onclick="redirectToLogin()">Login Now</button>
+            <button class="close-btn" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+
+    <div class="project-info">
+        <h2>About This Project</h2>
+        <p>
+            This <b>Live Object Detection System</b> is built using <b>Django</b> and <b>TensorFlow Object Detection API</b>.
+            The system can recognize hand gestures like:
+            <ul>
+                <li><b>Hello</b></li>
+                <li><b>Smoking</b></li>
+                <li><b>Tobacco*</b></li>
+                <li><b>Fight*</b></li>
+                <li><b>I Love You</b></li>
+                <li><b>No</b></li>
+                <li><b>Thanks</b></li>
+                <li><b>Yes</b></li>
+            </ul>
+            The object detection model is based on <b>SSD MobileNet</b>, and the live video feed is processed using OpenCV.
+        </p>
+        <p>* are the terms and condition </p>
+    </div>
+
+   <script>
+     let isStreaming = false;
+
+    function startDetection() {
+        fetch('/check_login_status/')  // New endpoint to check login status
+            .then(response => response.json())
+            .then(data => {
+                if (data.logged_in) {
+                    // If user is logged in, start detection
+                    fetch('/start_stream/')
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === 'started') {
+                                document.getElementById('video-container').style.display = 'block';
+                                document.getElementById('video-stream').src = "/video_feed/";
+                                isStreaming = true;
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                } else {
+                    // Show the custom modal if the user is not logged in
+                    document.getElementById("login-modal").style.display = "flex";
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+function stopDetection() {
+    fetch('/stop_stream/')
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'stopped') {
+                let videoElement = document.getElementById('video-stream');
+                videoElement.src = ""; // Stop video feed completely
+                document.getElementById('video-container').style.display = 'none';
+                isStreaming = false;
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+
+
+    function redirectToLogin() {
+        window.location.href = "/login/";
+    }
+
+    function closeModal() {
+        document.getElementById("login-modal").style.display = "none";
+    }
+</script>
+
+</body>
+</html>

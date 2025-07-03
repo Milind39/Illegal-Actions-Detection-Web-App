@@ -1,0 +1,26 @@
+<annotation>
+	<folder>collectedimages</folder>
+	<filename>yes.87620448-f6a0-11ef-b065-b77415823d3d.jpg</filename>
+	<path>D:\detection_project\Tensorflow\workspace\images\collectedimages\yes.87620448-f6a0-11ef-b065-b77415823d3d.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>640</width>
+		<height>480</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>yes</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>191</xmin>
+			<ymin>168</ymin>
+			<xmax>258</xmax>
+			<ymax>244</ymax>
+		</bndbox>
+	</object>
+</annotation>

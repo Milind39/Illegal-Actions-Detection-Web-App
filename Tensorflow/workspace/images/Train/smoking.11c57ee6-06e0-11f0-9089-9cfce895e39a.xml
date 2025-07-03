@@ -1,0 +1,26 @@
+<annotation>
+	<folder>collectedimages</folder>
+	<filename>smoking.11c57ee6-06e0-11f0-9089-9cfce895e39a.jpg</filename>
+	<path>D:\detection_project\Tensorflow\workspace\images\collectedimages\smoking.11c57ee6-06e0-11f0-9089-9cfce895e39a.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>640</width>
+		<height>480</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>smoking</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>75</xmin>
+			<ymin>222</ymin>
+			<xmax>185</xmax>
+			<ymax>394</ymax>
+		</bndbox>
+	</object>
+</annotation>

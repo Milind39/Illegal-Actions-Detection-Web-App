@@ -1,0 +1,26 @@
+<annotation>
+	<folder>collectedimages</folder>
+	<filename>Hello.3410bf56-f6a0-11ef-bb04-b77415823d3d.jpg</filename>
+	<path>D:\detection_project\Tensorflow\workspace\images\collectedimages\Hello.3410bf56-f6a0-11ef-bb04-b77415823d3d.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>640</width>
+		<height>480</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>Hello</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>155</xmin>
+			<ymin>63</ymin>
+			<xmax>243</xmax>
+			<ymax>205</ymax>
+		</bndbox>
+	</object>
+</annotation>

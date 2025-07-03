@@ -1,0 +1,100 @@
+{% include 'includes/navbar.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Object Detection</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin: 20px 0;
+            text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            margin: 10px;
+            font-size: 18px;
+            text-decoration: none;
+            color: white;
+            border-radius: 8px;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .detect-btn {
+            background-color: #28a745;
+        }
+
+        .detect-btn:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        .blog-btn {
+            background-color: #007bff;
+        }
+
+        .blog-btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .login-btn {
+            background-color: #ffc107;
+        }
+
+        .login-btn:hover {
+            background-color: #e0a800;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+  {% if messages %}
+  <div class="messages">
+      {% for message in messages %}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endfor %}
+  </div>
+  {% endif %}
+
+    <h1>Welcome to Object Detection Platform</h1>
+    <div class="container">
+        <p>Detect objects in real-time using AI-powered deep learning models. Start now!</p>
+        <a href="{% url 'detect' %}" class="btn detect-btn">Start Detection</a>
+        <a href="{% url 'blog' %}" class="btn blog-btn">Visit Blog</a>
+
+        {% if not request.user.is_authenticated %}
+        <a href="{% url 'login' %}" class="btn login-btn">Login</a>
+        {% endif %}
+    </div>
+</body>
+</html>

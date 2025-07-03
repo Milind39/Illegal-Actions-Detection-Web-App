@@ -1,0 +1,118 @@
+<nav class="navbar">
+    <div class="logo">Object Detection</div>
+    <ul class="nav-links">
+        <li><a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a></li>
+        <li><a href="{% url 'blog' %}" class="{% if request.resolver_match.url_name == 'blog' %}active{% endif %}">Blog</a></li>
+        <li><a href="{% url 'detect' %}" class="{% if request.resolver_match.url_name == 'detect' %}active{% endif %}">Detection</a></li>
+
+        {% if request.user.is_authenticated %}
+            <li>
+                <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="logout-btn">Logout</button>
+                </form>
+            </li>
+        {% else %}
+            <li><a href="{% url 'login' %}" class="login-btn {% if request.resolver_match.url_name == 'login' %}active{% endif %}">Login</a></li>
+        {% endif %}
+    </ul>
+</nav>
+
+<style>
+    /* Navbar Styling */
+    .navbar {
+        background-color: #008080;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .navbar .logo {
+        font-size: 22px;
+        font-weight: bold;
+        color: white;
+        margin-left: 20px;
+    }
+
+    .nav-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .nav-links li {
+        margin: 0 15px;
+    }
+
+    .nav-links a,
+    .logout-btn {
+        text-decoration: none;
+        color: white;
+        font-size: 16px;
+        padding: 8px 12px;
+        transition: 0.3s;
+        border: none;
+        cursor: pointer;
+    }
+
+    .nav-links a:hover,
+    .logout-btn:hover {
+        background-color: #006666;
+        border-radius: 5px;
+    }
+
+    /* Active Page Highlight */
+    .nav-links .active {
+        background-color: #004d4d;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+    /* Login and Logout Button Styling */
+    .login-btn {
+        background-color: #ffc107;
+        padding: 8px 12px;
+        border-radius: 5px;
+    }
+
+    .login-btn:hover {
+        background-color: #e0a800;
+    }
+
+    .logout-btn {
+        background-color: #dc3545;
+        padding: 8px 12px;
+        border-radius: 5px;
+    }
+
+    .logout-btn:hover {
+        background-color: #c82333;
+    }
+
+    /* Ensure the Logout Button Matches Other Links */
+    .nav-links form {
+        display: inline;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 800px) {
+        .navbar {
+            flex-direction: column;
+        }
+
+        .nav-links {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .nav-links li {
+            margin: 5px 0;
+        }
+    }
+</style>
